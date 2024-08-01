@@ -95,6 +95,7 @@ insert into VILLAGENAME (VILLAGE,VNAME) values ('C007','忠孝里');
 insert into VILLAGENAME (VILLAGE,VNAME) values ('C008','信義里');
 
 
+
 select FACILITY_INFO.POLICE, police_info.police_tel
  from STUDENT.FACILITY_INFO 
  left join POLICE_INFO 
@@ -134,6 +135,85 @@ FACILITY_INFO.PNUMBER,village_info.village_ad
  left join VILLAGENAME
  on FACILITY_INFO.VILLAGE = VILLAGENAME.VNAME
  where BNAME in ('公寓','大樓');
+
+create table FACILITY_INFO
+( PKCODE NUMBER (4,0)primary key,
+  BUNAME VARCHAR2(30 BYTE),
+  VNAME VARCHAR2(30 BYTE),
+  SHELTER_AD NVARCHAR2(200 BYTE),
+  PNUMER NUMBER (4,0),
+  DOWN NUMBER (4,0),
+  PCODE VARCHAR2(30 BYTE) references VILLAGE_INFO(VNAME));
+
+
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (1, '公寓', '大埔里', '竹南鎮中埔街20號',100 , 1, '竹南分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (2, '大樓', '竹南里', '竹南鎮和平街79號',3142 , 1, '竹南分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (3, '大樓', '山佳里', '竹南鎮龍山路三段142號',1072 , 1, '竹南分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (4, '公共設施', '埔頂里', '苗栗縣後龍鎮中華路1498號',32 , 1, '苗栗分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (5, '公寓', '綠苗里', '苗栗縣苗栗市米市街80號',106, 1, '苗栗分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (6, '公寓', '綠苗里', '苗栗縣苗栗市光復路117號',26, 1, '苗栗分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (7, '大樓', '綠苗里', '苗栗縣苗栗市博愛街109號',2038 , 2, '苗栗分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (8, '大樓', '綠苗里', '苗栗縣苗栗市大同路53號',128 , 2, '苗栗分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (9, '公共設施', '民族里', '苗栗縣頭份市民族里和平路102號',353 , 1, '頭份分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (10, '公共設施', '忠孝里', '苗栗縣頭份市忠孝忠孝一路69號',501 , 1, '頭份分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (11, '公寓', '信義里', '苗栗縣頭份市信義里中正路65號',194, 1, '頭份分局');
+insert into FACILITY_INFO (PKCODE, BUNAME, VNAME, SHELTER_AD, PNUMER, DOWN, PCODE)
+values (12, '公寓', '信義里', '苗栗縣頭份市信義里中正路116號',78, 1, '頭份分局');
+
+
+
+create table VILLAGE_INFO
+( VNAME VARCHAR2(30 BYTE)primary key,
+  VILLAGE_AD NVARCHAR2(200 BYTE),
+  OFFICE_TEL VARCHAR2(20 BYTE))
+ 
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('大埔里', '竹南鎮公義路1035號', '037581072');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('竹南里', '竹南鎮竹南里中山路103 號', '037472735');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('山佳里', '竹南鎮山佳里國光街14 號', '037-614186');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('埔頂里', '後龍鎮埔頂里中興路136-1號', '037-724839');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('綠苗里', '竹南鎮竹南里中山路103 號', '037-333240');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('民族里', '民族里民族路96號', '037-660001');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('忠孝里', '忠孝里光大街82號', '037-661145');
+insert into VILLAGE_INFO (VNAME, VILLAGE_AD, OFFICE_TEL)
+values ('信義里', '信義里信義路53巷1號', '037-616072');
+
+create table POLICE_INFO
+( PCODE VARCHAR2(30 BYTE) primary key,
+  POLICE_AD NVARCHAR2(200 BYTE),
+  POLICE_TEL VARCHAR2(20 BYTE));
+
+insert into  POLICE_INFO (PCODE, POLICE_AD, POLICE_TEL) 
+values ('竹南分局', '竹南鎮民族街72號', '037474796');
+
+insert into POLICE_INFO (PCODE, POLICE_AD, POLICE_TEL) 
+values ('苗栗分局', '竹南鎮民族街72號', '037320059');
+
+insert into POLICE_INFO (PCODE, POLICE_AD, POLICE_TEL) 
+values ('頭份分局', '苗栗市金鳳街109號', '037663004');
+
+
+	
+
+  
+  
 
 
 
