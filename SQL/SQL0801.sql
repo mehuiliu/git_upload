@@ -70,6 +70,30 @@ set BNAME = case
 end
 where PKCODE in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
+update VILLAGE_INFO 
+set VNAME = case 
+    when VILLAGE = 'C001' then '大埔里'
+    when VILLAGE = 'C002' then '竹南里'
+    when VILLAGE = 'C003' then '山佳里'
+    when VILLAGE = 'C004' then '埔頂里'
+    when VILLAGE = 'C005' then '綠苗里'
+    when VILLAGE = 'C006' then '民族里'
+    when VILLAGE = 'C007' then '忠孝里'
+    when VILLAGE = 'C008' then '信義里'
+    else VNAME
+end
+where VILLAGE in ('C001','C002','C003','C004','C005','C006','C007', 'C008');
+
+update POLICE_INFO 
+set PNAME = case 
+    when POLICE = 'M001' then '竹南分局'
+    when POLICE = 'M002' then '苗栗分局'
+    when POLICE = 'M003' then '頭份分局'
+
+    else PNAME
+end
+where POLICE in ('M001','M002','M003');
+
 --
 create table POLICECODE
 (POLICE VARCHAR2(20),
