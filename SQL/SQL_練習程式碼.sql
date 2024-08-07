@@ -73,8 +73,8 @@ insert into STUDENT.FACILITY_INFO (PKCODE,BUILDING,VILLAGE,SHELTER_AD,PNUMBER,DO
  values (12,'B01','C005','苗栗縣苗栗市米市街80號',106,1,'M002');
  
 alter table FACILITY_INFO 
- add BNAME VARCHAR2(30);
-
+ add BNAME VARCHAR2(30); 
+ 
 update FACILITY_INFO 
 set BNAME = case 
     when PKCODE = 1 then '公寓'
@@ -115,4 +115,38 @@ insert into VILLAGENAME (VILLAGE,VNAME) values ('C006','民族里');
 insert into VILLAGENAME (VILLAGE,VNAME) values ('C007','忠孝里');
 insert into VILLAGENAME (VILLAGE,VNAME) values ('C008','信義里'); 
 
-    
+select * from POLICE_INFO;
+
+alter table VILLAGE_INFO 
+add VNAME VARCHAR2(30);
+update VILLAGE_INFO 
+set VNAME = case 
+    when VILLAGE = 'C001' then '大埔里'
+    when VILLAGE = 'C002' then '竹南里'
+    when VILLAGE = 'C003' then '山佳里'
+    when VILLAGE = 'C004' then '埔頂里'
+    when VILLAGE = 'C005' then '綠苗里'
+    when VILLAGE = 'C006' then '民族里'
+    when VILLAGE = 'C007' then '忠孝里'
+    when VILLAGE = 'C008' then '信義里'
+    else VNAME
+end
+where VILLAGE in ('C001','C002','C003','C004','C005','C006','C007','C008');
+
+alter table POLICE_INFO 
+add PNAME VARCHAR2(30);
+
+update POLICE_INFO 
+set PNAME = case 
+    when POLICE = 'M001' then '竹南分局'
+    when POLICE = 'M002' then '苗栗分局'
+    when POLICE = 'M003' then '頭份分局'
+
+    else PNAME
+end
+where POLICE in ('M001','M002','M003');
+
+ALTER TABLE FACILITY_INFO
+ADD CONSTRAINT fk_customer
+FOREIGN KEY (VILLAGE)
+REFERENCES VILLAGE_INFO (VILLAGE);

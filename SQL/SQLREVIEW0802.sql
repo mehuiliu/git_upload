@@ -1,56 +1,42 @@
 --4-1 
-select distinct PO.police_tel, PC.pcode
+select distinct PO.POLICE_TEL,PO.PNAME
  from STUDENT.FACILITY_INFO FO
  left join POLICE_INFO PO 
  on FO.POLICE = PO.POLICE
- left join POLICECODE PC
- on FO.POLICE = PC.police
  where FO.PNUMBER > 1000;
- 
 --4-2
- 
-select PC.pcode ,
-      PO.police_tel, FO.shelter_ad,
+select PO.PNAME ,
+      PO.POLICE_TEL, FO.SHELTER_AD,
       FO.BNAME,
- count(FO.shelter_ad) 
- over(partition by FO.shelter_ad) as s_number 
+ count(FO.SHELTER_AD) 
+ over(partition by FO.POLICE) as S_NUMBER 
  from STUDENT.FACILITY_INFO FO
  left join POLICE_INFO PO
  on FO.POLICE = PO.POLICE
- left join POLICECODE PC
- on FO.POLICE = PC.police
  where FO.PNUMBER > 1000;
-
 --4-4
- 
-select VN.VNAME, FO.SHELTER_AD, 
-      FO.PNUMBER,PC.PCODE,PO.police_tel
+select VO.VNAME, FO.SHELTER_AD, 
+      FO.PNUMBER,PO.PNAME,PO.POLICE_TEL
  from STUDENT.FACILITY_INFO FO
  left join POLICE_INFO PO
  on FO.POLICE = PO.POLICE
- left join POLICECODE PC
- on FO.POLICE = PC.POLICE
- left join VILLAGENAME VN
- on FO.VILLAGE = VN.village
+ left join VILLAGE_INFO VO
+ on FO.VILLAGE = VO.VILLAGE
  where SHELTER_AD like '%中%';
-
 --4-5 
-Select VN.VNAME, FO.SHELTER_AD, 
-       FO.PNUMBER,VO.village_ad
+Select VO.VNAME, FO.SHELTER_AD, 
+       FO.PNUMBER,VO.VILLAGE_AD
  from STUDENT.FACILITY_INFO FO
  left join VILLAGE_INFO VO
- on FO.VILLAGE = VO.village
- left join VILLAGENAME VN
- on FO.VILLAGE = VN.VILLAGE
+ on FO.VILLAGE = VO.VILLAGE
  where BNAME in ('公寓','大樓');
 
-update facility_info
-set pnumber = 5000
-where shelter_ad = '竹南鎮和平街79號'
+update FACILITY_INFO
+set PNUMBER = 5000
+where SHELTER_AD = '竹南鎮和平街79號'
 
-delete from facility_info
+delete from FACILITY_INFO
 where PNUMBER <1000;
 
-select * from FACILITY_INFO
 
 
