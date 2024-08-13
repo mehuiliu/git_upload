@@ -71,32 +71,34 @@ public class Practice6 {
 			groupData.putIfAbsent(manufacturer, new ArrayList<>());
 			groupData.get(manufacturer).add(data);
 		}
-
-		System.out.println("Manufacturer  Type  Min.Price  Price");
+		StringBuilder sb0 = new StringBuilder();
+		sb0.append(String.format("%-15s", "Manufacturer")).append(String.format(" %-10s", "Type"))
+				.append(String.format(" %-10s", "Min.Price")).append(String.format(" %-10s", "Price"));
+		System.out.println(sb0.toString());
 
 		for (Map.Entry<String, List<Map<String, String>>> entry : groupData.entrySet()) {
-			String manufacturer = entry.getKey();
+			entry.getKey();
 			List<Map<String, String>> manufacturerData = entry.getValue();
 
 			BigDecimal subtotalMinPrice = BigDecimal.ZERO;
 			BigDecimal subtotalPrice = BigDecimal.ZERO;
-
-			System.out.println(manufacturer);
 
 			for (Map<String, String> data : manufacturerData) {
 				BigDecimal minPrice = new BigDecimal(data.get("Min.Price"));
 				BigDecimal price = new BigDecimal(data.get("Price"));
 
 				StringBuilder sb1 = new StringBuilder();
-				sb1.append("\t").append(data.get("Type")).append("\t").append(minPrice).append("\t").append(price);
-
+				sb1.append(String.format("%-15s", data.get("Manufacturer")))
+						.append(String.format(" %-11s", data.get("Type"))).append(String.format("%-10.1f", minPrice))
+						.append(String.format("%-10.1f", price));
 				System.out.println(sb1.toString());
 
 				subtotalMinPrice = subtotalMinPrice.add(minPrice);
 				subtotalPrice = subtotalPrice.add(price);
 			}
 			StringBuilder sbSubTotal = new StringBuilder();
-			sbSubTotal.append("小計\t\t\t").append(subtotalMinPrice).append("\t").append(subtotalPrice);
+			sbSubTotal.append(String.format("%-14s", "小計\t\t")).append(String.format("%-10.1f", subtotalMinPrice))
+					.append(String.format(" %-10.1f", subtotalPrice));
 
 			System.out.println(sbSubTotal.toString());
 
@@ -104,7 +106,9 @@ public class Practice6 {
 			totalPrice = totalPrice.add(subtotalPrice);
 		}
 		StringBuilder sbTotal = new StringBuilder();
-		sbTotal.append("合計\t\t\t").append(totalMinPrice).append("\t").append(totalPrice);
+		sbTotal.append(String.format("%-14s", "合計\t\t")).append(String.format("%-10.1f", totalMinPrice))
+				.append(String.format(" %-10.1f", totalPrice));
 		System.out.println(sbTotal.toString());
+
 	}
 }
