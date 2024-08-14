@@ -18,11 +18,8 @@ public class HRMain {
 
 			employee.printInfo();
 		}
-		BufferedWriter writer = null;
-
-		try {
-			writer = new BufferedWriter(new FileWriter("C:\\Users\\Admin\\Desktop\\output.csv"));
-
+//trywith
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Admin\\Desktop\\output.csv"))) {
 			for (Employee employee : employeeList) {
 
 				String name = employee.getName();
@@ -32,19 +29,16 @@ public class HRMain {
 				} else {
 					payment = (int) employee.getSalary();
 				}
-				writer.write(name + "," + payment);
+				StringBuilder sb1 = new StringBuilder();
+				sb1.append(name).append(",").append(payment);
+				writer.write(sb1.toString());
 				writer.newLine();
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (writer != null)
-					writer.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+
 		}
+
 	}
 }

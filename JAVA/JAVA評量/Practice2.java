@@ -9,11 +9,10 @@ public class Practice2 {
 
 	public static void main(String[] args) {
 
-		int len = 6;
-		List<Integer> resultList = new ArrayList<>(len);
+		List<Integer> resultList = new ArrayList<>();
 		Random rand = new Random();
 
-		while (resultList.size() < len) {
+		while (resultList.size() < 6) {
 			int num = rand.nextInt(49) + 1;
 			if (!resultList.contains(num)) {
 				resultList.add(num);
@@ -23,19 +22,13 @@ public class Practice2 {
 		printList(resultList);
 
 		Collections.sort(resultList);
-		System.out.println("排序後: ");
+		System.out.println("\n" + "排序後:");
 		printList(resultList);
 	}
 
 	private static void printList(List<Integer> resultList) {
-
-		for (int i = 0; i < resultList.size(); i++) {
-			System.out.print(resultList.get(i));
-			if (i < resultList.size() - 1) {
-				System.out.print(" ");
-			}
+		for (Integer result : resultList) {
+			System.out.print(result + " ");
 		}
-		System.out.println();
 	}
-
 }

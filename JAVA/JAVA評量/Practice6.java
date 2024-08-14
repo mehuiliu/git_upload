@@ -21,10 +21,10 @@ public class Practice6 {
 		String inputFile = "C:\\Users\\Admin\\Desktop\\cars.csv";
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-			String line = null;
-			String[] headers = reader.readLine().split(",");
+			String line = reader.readLine();
+			String[] headers = line.split(",");
 
-			while ((line = reader.readLine()) != null) {
+			while (line != null) {
 				String[] values = line.split(",");
 
 				Map<String, String> data = new HashMap<>();
@@ -75,6 +75,7 @@ public class Practice6 {
 		sb0.append(String.format("%-15s", "Manufacturer")).append(String.format(" %-10s", "Type"))
 				.append(String.format(" %-10s", "Min.Price")).append(String.format(" %-10s", "Price"));
 		System.out.println(sb0.toString());
+		sb0.setLength(0);
 
 		for (Map.Entry<String, List<Map<String, String>>> entry : groupData.entrySet()) {
 			entry.getKey();
@@ -87,28 +88,28 @@ public class Practice6 {
 				BigDecimal minPrice = new BigDecimal(data.get("Min.Price"));
 				BigDecimal price = new BigDecimal(data.get("Price"));
 
-				StringBuilder sb1 = new StringBuilder();
-				sb1.append(String.format("%-15s", data.get("Manufacturer")))
+//				StringBuilder sb1 = new StringBuilder();
+				sb0.append(String.format("%-15s", data.get("Manufacturer")))
 						.append(String.format(" %-11s", data.get("Type"))).append(String.format("%-10.1f", minPrice))
 						.append(String.format("%-10.1f", price));
-				System.out.println(sb1.toString());
-
+				System.out.println(sb0.toString());
+				sb0.setLength(0);
 				subtotalMinPrice = subtotalMinPrice.add(minPrice);
 				subtotalPrice = subtotalPrice.add(price);
 			}
-			StringBuilder sbSubTotal = new StringBuilder();
-			sbSubTotal.append(String.format("%-14s", "小計\t\t")).append(String.format("%-10.1f", subtotalMinPrice))
+//			StringBuilder sbSubTotal = new StringBuilder();
+			sb0.append(String.format("%-14s", "小計\t\t")).append(String.format("%-10.1f", subtotalMinPrice))
 					.append(String.format(" %-10.1f", subtotalPrice));
 
-			System.out.println(sbSubTotal.toString());
-
+			System.out.println(sb0.toString());
+			sb0.setLength(0);
 			totalMinPrice = totalMinPrice.add(subtotalMinPrice);
 			totalPrice = totalPrice.add(subtotalPrice);
 		}
-		StringBuilder sbTotal = new StringBuilder();
-		sbTotal.append(String.format("%-14s", "合計\t\t")).append(String.format("%-10.1f", totalMinPrice))
-				.append(String.format(" %-10.1f", totalPrice));
-		System.out.println(sbTotal.toString());
+//		StringBuilder sbTotal = new StringBuilder();
+		sb0.append(String.format("%-14s", "合計\t\t")).append(String.format("%10.1f", totalMinPrice))
+				.append(String.format(" %10.1f", totalPrice));
+		System.out.println(sb0.toString());
 
 	}
 }

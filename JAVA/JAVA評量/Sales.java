@@ -11,10 +11,12 @@ public class Sales extends Employee {
 		this.payment = salary + bonus;
 	}
 
+	@Override
 	public void printInfo() {
 		super.printInfo();
-		System.out.println("業績獎金:"+""+bonus);
-		System.out.println("總計:"+""+payment);
+		System.out.println("業績獎金: " + bonus);
+		
+		System.out.println("總計: " + payment);
 	}
 
 	public double getBonus() {
