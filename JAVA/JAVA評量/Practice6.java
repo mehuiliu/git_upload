@@ -88,7 +88,6 @@ public class Practice6 {
 				BigDecimal minPrice = new BigDecimal(data.get("Min.Price"));
 				BigDecimal price = new BigDecimal(data.get("Price"));
 
-//				StringBuilder sb1 = new StringBuilder();
 				sb0.append(String.format("%-15s", data.get("Manufacturer")))
 						.append(String.format(" %-11s", data.get("Type"))).append(String.format("%-10.1f", minPrice))
 						.append(String.format("%-10.1f", price));
@@ -97,7 +96,7 @@ public class Practice6 {
 				subtotalMinPrice = subtotalMinPrice.add(minPrice);
 				subtotalPrice = subtotalPrice.add(price);
 			}
-//			StringBuilder sbSubTotal = new StringBuilder();
+
 			sb0.append(String.format("%-14s", "小計\t\t")).append(String.format("%-10.1f", subtotalMinPrice))
 					.append(String.format(" %-10.1f", subtotalPrice));
 
@@ -106,7 +105,7 @@ public class Practice6 {
 			totalMinPrice = totalMinPrice.add(subtotalMinPrice);
 			totalPrice = totalPrice.add(subtotalPrice);
 		}
-//		StringBuilder sbTotal = new StringBuilder();
+
 		sb0.append(String.format("%-14s", "合計\t\t")).append(String.format("%10.1f", totalMinPrice))
 				.append(String.format(" %10.1f", totalPrice));
 		System.out.println(sb0.toString());
