@@ -1,0 +1,171 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>【操作DOM物件table】</title>
+    <style>
+        .collapse {
+            border-collapse: collapse;
+        }
+
+        .center {
+            display: block;
+            margin: auto;
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        input {
+            text-align: left;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            let selectedRow = null;
+            document.getElementById('insBtn').onclick = function () {
+                addRow();
+            }
+            document.getElementById('updBtn').onclick = function () {
+                updateRow();
+            }
+            document.getElementById('cleBtn').onclick = function () {
+                cleanInput();
+            }
+
+            function addRow() {
+
+                const manufacturer = document.getElementById('manufacturer').value;
+                const type = document.getElementById('type').value;
+                const minPrice = document.getElementById('minPrice').value;
+                const price = document.getElementById('price').value;
+
+                if (manufacturer && type) {
+                    const table = document.getElementById('table');
+                    const newRow = table.insertRow();
+                    const serialNumber = table.rows.length - 1;
+                    newRow.insertCell(0).innerHTML = `<input type="radio" name="selectRow"/>`;
+                    newRow.insertCell(1).innerText = serialNumber;
+                    newRow.insertCell(2).innerText = manufacturer;
+                    newRow.insertCell(3).innerText = type;
+                    newRow.insertCell(4).innerText = minPrice;
+                    newRow.insertCell(5).innerText = price;
+                    newRow.insertCell(6).innerHTML = `<button name="removeBtn">刪除</button>`;
+                    cleanInputArea()
+                    removeEvent(newRow);
+                } else {
+                    alert('請輸入製造商與類型');
+                }
+            }
+
+            function updateRow() {
+                if (selectedRow) {
+                    const manufacturer = document.getElementById('manufacturer').value;
+                    const type = document.getElementById('type').value;
+                    const minPrice = document.getElementById('minPrice').value;
+                    const price = document.getElementById('price').value;
+
+                    if (manufacturer && type) {
+                        selectedRow.cells[2].innerText = manufacturer;
+                        selectedRow.cells[3].innerText = type;
+                        selectedRow.cells[4].innerText = minPrice;
+                        selectedRow.cells[5].innerText = price;
+                        cleanInputArea()
+                    } else {
+                        alert('製造商與類型欄位不可為空白');
+                    }
+                }
+            }
+
+            function cleanInput() {
+                cleanInputArea();
+
+                const table = document.getElementById('table');
+                const rowCount = table.rows.length;
+                for (let i = rowCount - 1; i > 0; i--) {
+                    table.deleteRow(i);
+                }
+                selectedRow = null;
+            }
+
+            function cleanInputArea() {
+                document.getElementById('manufacturer').value = '';
+                document.getElementById('type').value = '';
+                document.getElementById('minPrice').value = '';
+                document.getElementById('price').value = '';
+            }
+
+
+            function removeEvent(row) {
+                const deleteBtn = row.cells[6].querySelector('button[name="removeBtn"]');
+                deleteBtn.onclick = function () {
+                    row.remove();
+                    updateSerialNum();
+                };
+            }
+
+            function updateSerialNum() {
+                const table = document.getElementById('table');
+                for (let i = 1; i < table.rows.length; i++) {
+                    table.rows[i].cells[1].innerText = i;
+                }
+            }
+
+            document.getElementById('table').onclick = function (e) {
+                if (e.target.name === "selectRow") {
+                    selectedRow = e.target.parentElement.parentElement;
+                    document.getElementById('manufacturer').value = selectedRow.cells[2].innerText;
+                    document.getElementById('type').value = selectedRow.cells[3].innerText;
+                    document.getElementById('minPrice').value = selectedRow.cells[4].innerText;
+                    document.getElementById('price').value = selectedRow.cells[5].innerText;
+                }
+            };
+        }
+
+    </script>
+</head>
+
+<body>
+    <table border=1 class="collapse" width="600" height="150">
+
+        <tr>
+            <td>製造商</td>
+            <td><input type="text" id="manufacturer" /></td>
+            <td>類別</t>
+            <td><input type="text" id="type" /></td>
+        </tr>
+        <tr>
+            <td>底價</td>
+            <td><input type="text" id="minPrice" /></td>
+            <td>售價</td>
+            <td><input type="text" id="price" /></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="center">
+                    <button id="insBtn">新增</button>
+                    <button id="updBtn">修改</button>
+                    <button id="cleBtn">清空</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table border=1 class="collapse" width="480" height="40" id="table">
+
+        <tr>
+            <td width="40"> </td>
+            <td id="number">序號</td>
+            <td id="manufacturer1">製造商</td>
+            <td id="type1">類別</td>
+            <td id="minPrice1">底價</td>
+            <td id="price1">售價</td>
+            <td width="70"> </td>
+        </tr>
+</body>
+
+</html>

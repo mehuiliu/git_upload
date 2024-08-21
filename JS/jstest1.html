@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>【模擬封裝與私有map】</title>
+    <style>
+        hr {
+            margin: 20px 0;
+        }
+
+        .buttons-container button {
+            margin-right: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-group span {
+            margin-right: 10px;
+            width: 60px;
+            text-align: left;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+
+        pre {
+            padding-left: 1em;
+        }
+    </style>
+    <script src="HashMap.js"></script>
+    <script>
+        window.onload = function () {
+            const myMap = new HashMap();
+            const putBtn = document.getElementById('putBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const keyInput = document.getElementById('key');
+            const valueInput = document.getElementById('value');
+            const resultArea = document.getElementById('result');
+
+            putBtn.onclick = function () {
+                const key = keyInput.value;
+                const value = valueInput.value;
+
+                if (key && !myMap.contains(key)) {
+                    myMap.put(key, value);
+                    updateResult();
+
+                } else {
+                    alert('Key值不可空白且重複');
+                }
+            };
+
+            clearBtn.onclick = function () {
+                myMap.clear();
+                keyInput.value = '';
+                valueInput.value = '';
+                updateResult();
+            };
+
+            function updateResult() {
+                const keys = myMap.keys();
+                resultArea.textContent = '';
+                keys.forEach(key => {
+                    resultArea.textContent += `${key} : ${myMap.get(key)}\n`;
+                });
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="input-group">
+        <span for="key">KEY</span>
+        <input type="text" id="key">
+    </div>
+    <div class="input-group">
+        <span for="value">VALUE</span>
+        <input type="text" id="value">
+    </div>
+    <hr>
+    <div class="buttons-container">
+        <button id="putBtn">PUT</button>
+        <button id="clearBtn">CLEAR</button>
+    </div>
+
+    <hr>
+    <span>[RESULT]</span>
+    <pre id="result"></pre>
+
+
+</body>
+
+</html>
