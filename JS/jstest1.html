@@ -47,13 +47,12 @@
                 const key = keyInput.value;
                 const value = valueInput.value;
 
-                if (key && !myMap.contains(key)) {
-                    myMap.put(key, value);
-                    updateResult();
-
-                } else {
-                    alert('Key值不可空白且重複');
+                if (!key.trim() || myMap.contains(key)) {
+                    alert('Key值不可空白且重複')
+                    return;
                 }
+                myMap.put(key, value);
+                updateResult();
             };
 
             clearBtn.onclick = function () {

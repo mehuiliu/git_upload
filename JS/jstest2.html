@@ -36,48 +36,59 @@
             document.getElementById('cleBtn').onclick = function () {
                 cleanInput();
             }
-
+            function numeric(value) {
+                return !isNaN(value);
+            }
             function addRow() {
 
-                const manufacturer = document.getElementById('manufacturer').value;
-                const type = document.getElementById('type').value;
-                const minPrice = document.getElementById('minPrice').value;
-                const price = document.getElementById('price').value;
+                const manufacturer = document.getElementById('manufacturer').value.trim();
+                const type = document.getElementById('type').value.trim();
+                const minPrice = document.getElementById('minPrice').value.trim();
+                const price = document.getElementById('price').value.trim();
 
-                if (manufacturer && type) {
-                    const table = document.getElementById('table');
-                    const newRow = table.insertRow();
-                    const serialNumber = table.rows.length - 1;
-                    newRow.insertCell(0).innerHTML = `<input type="radio" name="selectRow"/>`;
-                    newRow.insertCell(1).innerText = serialNumber;
-                    newRow.insertCell(2).innerText = manufacturer;
-                    newRow.insertCell(3).innerText = type;
-                    newRow.insertCell(4).innerText = minPrice;
-                    newRow.insertCell(5).innerText = price;
-                    newRow.insertCell(6).innerHTML = `<button name="removeBtn">刪除</button>`;
-                    cleanInputArea()
-                    removeEvent(newRow);
-                } else {
+                if (!manufacturer || !type) {
                     alert('請輸入製造商與類型');
+                    return
                 }
+                if (!numeric(minPrice) || !numeric(price)) {
+                    alert('底價與售價請輸入數字');
+                    return
+                }
+                const table = document.getElementById('table');
+                const newRow = table.insertRow();
+                const serialNumber = table.rows.length - 1;
+                newRow.insertCell(0).innerHTML = `<input type="radio" name="selectRow"/>`;
+                newRow.insertCell(1).innerText = serialNumber;
+                newRow.insertCell(2).innerText = manufacturer;
+                newRow.insertCell(3).innerText = type;
+                newRow.insertCell(4).innerText = minPrice;
+                newRow.insertCell(5).innerText = price;
+                newRow.insertCell(6).innerHTML = `<button name="removeBtn">刪除</button>`;
+                cleanInputArea()
+                removeEvent(newRow);
+
             }
 
             function updateRow() {
                 if (selectedRow) {
-                    const manufacturer = document.getElementById('manufacturer').value;
-                    const type = document.getElementById('type').value;
-                    const minPrice = document.getElementById('minPrice').value;
-                    const price = document.getElementById('price').value;
+                    const manufacturer = document.getElementById('manufacturer').value.trim();
+                    const type = document.getElementById('type').value.trim();
+                    const minPrice = document.getElementById('minPrice').value.trim();
+                    const price = document.getElementById('price').value.trim();
 
-                    if (manufacturer && type) {
-                        selectedRow.cells[2].innerText = manufacturer;
-                        selectedRow.cells[3].innerText = type;
-                        selectedRow.cells[4].innerText = minPrice;
-                        selectedRow.cells[5].innerText = price;
-                        cleanInputArea()
-                    } else {
+                    if (!manufacturer || !type) {
                         alert('製造商與類型欄位不可為空白');
+                        return
                     }
+                    if (!numeric(minPrice) || !numeric(price)) {
+                        alert('底價與售價請輸入數字');
+                        return
+                    }
+                    selectedRow.cells[2].innerText = manufacturer;
+                    selectedRow.cells[3].innerText = type;
+                    selectedRow.cells[4].innerText = minPrice;
+                    selectedRow.cells[5].innerText = price;
+                    cleanInputArea()
                 }
             }
 
@@ -114,7 +125,6 @@
                     table.rows[i].cells[1].innerText = i;
                 }
             }
-
             document.getElementById('table').onclick = function (e) {
                 if (e.target.name === "selectRow") {
                     selectedRow = e.target.parentElement.parentElement;
