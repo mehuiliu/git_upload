@@ -21,10 +21,10 @@ public class Practice6 {
 		String inputFile = "C:\\Users\\Admin\\Desktop\\cars.csv";
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-			String line = reader.readLine();
-			String[] headers = line.split(",");
+			String line = null;
+			String[] headers = reader.readLine().split(",");
 
-			while (line != null) {
+			while ((line = reader.readLine())!= null) {
 				String[] values = line.split(",");
 
 				Map<String, String> data = new HashMap<>();
